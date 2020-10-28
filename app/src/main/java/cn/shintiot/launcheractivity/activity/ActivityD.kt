@@ -5,6 +5,7 @@ import android.os.Bundle
 import cn.shintiot.launcheractivity.BaseActivity
 import cn.shintiot.launcheractivity.MainActivity
 import cn.shintiot.launcheractivity.R
+import kotlinx.android.synthetic.main.activity_main.*
 
 class ActivityD : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

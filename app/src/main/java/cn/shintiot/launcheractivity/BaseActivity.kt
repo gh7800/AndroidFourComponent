@@ -1,13 +1,18 @@
 package cn.shintiot.launcheractivity
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 
 open class BaseActivity :AppCompatActivity(){
+    lateinit var mContext : Context
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        mContext = this;
+
         Log.e(this.javaClass.simpleName,"onCreate")
     }
 

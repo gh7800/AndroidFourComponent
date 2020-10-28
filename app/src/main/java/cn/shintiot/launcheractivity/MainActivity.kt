@@ -6,6 +6,7 @@ import cn.shintiot.launcheractivity.activity.ActivityA
 import cn.shintiot.launcheractivity.activity.ActivityB
 import cn.shintiot.launcheractivity.activity.ActivityC
 import cn.shintiot.launcheractivity.activity.ActivityD
+import cn.shintiot.launcheractivity.service.ServiceActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity() {
@@ -22,7 +23,7 @@ class MainActivity : BaseActivity() {
             startActivity(intent)
         }
         start_b.setOnClickListener {
-            val intent = Intent(this, ActivityB::class.java)
+            val intent = Intent(this, ServiceActivity::class.java)
             startActivity(intent)
         }
         start_c.setOnClickListener {

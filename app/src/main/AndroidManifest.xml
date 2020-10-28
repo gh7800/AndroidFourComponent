@@ -21,7 +21,10 @@
         <activity android:name=".activity.ActivityB" android:launchMode="singleTop"/>
         <activity android:name=".activity.ActivityC" android:launchMode="singleTop"/>
         <activity android:name=".activity.ActivityD" android:launchMode="singleTop"/>
+        <activity android:name=".service.ServiceActivity" />
 
+        <service android:name=".service.IService" />
+        <service android:name=".service.IBindService" />
     </application>
 
 </manifest>
