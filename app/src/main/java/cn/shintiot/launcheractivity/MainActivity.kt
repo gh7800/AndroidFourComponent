@@ -2,10 +2,8 @@ package cn.shintiot.launcheractivity
 
 import android.content.Intent
 import android.os.Bundle
-import cn.shintiot.launcheractivity.activity.ActivityA
-import cn.shintiot.launcheractivity.activity.ActivityB
-import cn.shintiot.launcheractivity.activity.ActivityC
-import cn.shintiot.launcheractivity.activity.ActivityD
+import cn.shintiot.launcheractivity.activity.*
+import cn.shintiot.launcheractivity.media.MediaActivity
 import cn.shintiot.launcheractivity.service.ServiceActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -32,6 +30,14 @@ class MainActivity : BaseActivity() {
         }
         start_d.setOnClickListener {
             val intent = Intent(this, ActivityD::class.java)
+            startActivity(intent)
+        }
+        start_Aidl.setOnClickListener {
+            val intent = Intent(this, AIDLActivity::class.java)
+            startActivity(intent)
+        }
+        main_media.setOnClickListener {
+            val intent = Intent(this, MediaActivity::class.java)
             startActivity(intent)
         }
     }

@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="cn.shintiot.launcheractivity">
 
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,6 +13,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <service android:name=".aidlService.AIDLService"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="cn.shintiot.launcheractivity"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </service>
+
+
+        <service android:name=".service.IService" />
+        <service android:name=".service.IBindService" />
+
         <activity android:name=".MainActivity" android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,9 +39,9 @@
         <activity android:name=".activity.ActivityC" android:launchMode="singleTop"/>
         <activity android:name=".activity.ActivityD" android:launchMode="singleTop"/>
         <activity android:name=".service.ServiceActivity" />
+        <activity android:name=".activity.AIDLActivity" />
+        <activity android:name=".media.MediaActivity" />
 
-        <service android:name=".service.IService" />
-        <service android:name=".service.IBindService" />
     </application>
 
 </manifest>
