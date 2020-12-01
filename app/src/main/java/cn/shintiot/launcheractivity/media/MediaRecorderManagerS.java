@@ -4,22 +4,25 @@ import android.media.MediaRecorder;
 import android.os.Build;
 import android.os.Environment;
 import android.util.Log;
+
 import java.io.File;
 import java.io.IOException;
 
-public class MediaRecorderManager {
+import cn.shineiot.base.utils.ToastUtil;
+
+public class MediaRecorderManagerS {
 
     private MediaRecorder mediaRecorder;
-    private static MediaRecorderManager mediaRecorderManager;
+    private static MediaRecorderManagerS mediaRecorderManager;
     /*录音状态*/
     private static int State = 0;
 
 
-    public static MediaRecorderManager newInstance() {
+    public static MediaRecorderManagerS newInstance() {
         if (null == mediaRecorderManager) {
-            synchronized (MediaRecorderManager.class) {
+            synchronized (MediaRecorderManagerS.class) {
                 if (null == mediaRecorderManager) {
-                    mediaRecorderManager = new MediaRecorderManager();
+                    mediaRecorderManager = new MediaRecorderManagerS();
                 }
             }
         }
@@ -27,7 +30,7 @@ public class MediaRecorderManager {
     }
 
 
-    private MediaRecorderManager() {
+    private MediaRecorderManagerS() {
         mediaRecorder = new MediaRecorder();
     }
 
@@ -39,23 +42,30 @@ public class MediaRecorderManager {
      */
 
 
-    public void startRecorder() throws IOException {
-        Log.e("tag", "startRecorder");
+    public void startRecorder(String filePath) throws IOException {
+        Log.e("tag", "startRecorder__" + filePath);
         /*判断是否有SdCard*/
         if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
-            mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
-            mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
-            mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
-            String rootPath = Environment.getExternalStorageDirectory().getAbsolutePath();
-            File file = new File(rootPath, System.currentTimeMillis() + ".mp4");
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-                mediaRecorder.setOutputFile(file);
-            } else {
-                mediaRecorder.setOutputFile(file.getAbsolutePath());
+
+            if(null != mediaRecorder) {
+                mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
+                mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.AMR_NB);
+                mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.DEFAULT);
+                //String rootPath = Environment.getExternalStorageDirectory().getAbsolutePath();
+                //File file = new File(rootPath, System.currentTimeMillis() + ".mp4");
+                File file = new File(filePath);
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                    mediaRecorder.setOutputFile(file);
+                } else {
+                    mediaRecorder.setOutputFile(file.getAbsolutePath());
+                }
+                mediaRecorder.prepare();
+                mediaRecorder.start();
+                State = 1;
+            }else{
+                ToastUtil.INSTANCE.showToast("mediaRecorder = null",0);
             }
-            mediaRecorder.prepare();
-            mediaRecorder.start();
-            State = 1;
+
         }
     }
 
@@ -78,12 +88,12 @@ public class MediaRecorderManager {
      */
     public void pauseRecorder() {
         if (mediaRecorder != null && State == 1) {
-            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 mediaRecorder.pause();
                 State = 2;
-            }else{
+            } else {
+                //mediaRecorder.pause();
                 stopRecorder();
-                release();
             }
         }
     }
@@ -99,7 +109,7 @@ public class MediaRecorderManager {
             mediaRecorder = null;
             State = 0;
 
-            release();
+            //release();
         }
     }
 
